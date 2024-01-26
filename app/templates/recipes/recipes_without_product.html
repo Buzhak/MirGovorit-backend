@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>    
+    <meta charset="utf-8">
+  <body>
+    <main>
+        <h1>{{ title }}</h1>
+        {% if recipes and recipes|length > 0 %}
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+            </tr>
+            {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.id }}</td>
+                <td>{{ recipe.title }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h2 style="color: red">Список пуст</h2>
+        {% endif %}
+    </main>
+  </body>
+</html>
