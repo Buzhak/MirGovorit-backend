@@ -6,10 +6,6 @@ class Product(models.Model):
     title = models.CharField('название продукта', max_length=100)
     count = models.PositiveIntegerField('Количество приготовленных блюд с этим продуктом', default=0, editable=False)
 
-    def increase_count(self):
-        self.count += 1
-        self.save()
-
 
     class Meta:
         verbose_name = "Продукт"
