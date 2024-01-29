@@ -31,22 +31,21 @@ def recipes_without_product(request, product_id):
         ~Q(
             ingredients__product=product
         ) | Q(
-            ingredients__product=product
-        ) & Q(
+            ingredients__product=product,
             ingredients__amount__lt=10
         )
-    ).all().order_by('id')
+    ).all().distinct().order_by('id')
 
     template = 'recipes/recipes_without_product.html'
     context = {
         'recipes': recipes,
         'title': TITLE_WITHOUT_PRODUCT + f' {product}'
     }
-    return render(request, template, context) 
+    return render(request, template, context)
 
 
 @require_GET
-def  cook_recipe(request, recipe_id):
+def cook_recipe(request, recipe_id):
     '''
     View функция обновляет количество продуктов
     использованнх в рецепте (recipe_id)
@@ -73,7 +72,6 @@ def add_product_to_recipe(request, recipe_id, product_id, weight):
     в указанный рецепт.
     Если такой продукт в рецепте уже существует,
     данные о весе обновляются.
-    
     :param recipe_id: id рецепта
     :param product_id: id добавляемого продукта
     :param weght: вес продукта
@@ -83,17 +81,17 @@ def add_product_to_recipe(request, recipe_id, product_id, weight):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     product = get_object_or_404(Product, pk=product_id)
 
-    if weight <1:
+    if weight < 1:
         return HttpResponse(
             MESSAGE_WRONG_WEIGHT_VALUE, status=HTTP_400_BAD_REQUEST
         )
-    
+
     defaults = {'product': product, 'amount': weight, 'recipe': recipe}
 
     Ingredient.objects.update_or_create(
         recipe=recipe, product=product, defaults=defaults
     )
-    
+
     return HttpResponse(
         f'{product.title} {weight}{MESSAGE_WEIGHT_OK}{recipe.title}',
         status=HTTP_200_OK

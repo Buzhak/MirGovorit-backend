@@ -12,20 +12,18 @@ class ChoiceInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'pub_date', )
     list_filter = ('title', 'pub_date', )
-    list_display_links =('title', )
+    list_display_links = ('title', )
     inlines = [ChoiceInline]
 
-
     class Meta:
-            model = Recipe
+        model = Recipe
 
 
 @admin.register(Ingredient)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('product', 'amount')
     list_filter = ('product', 'amount')
-    list_display_links =('product', )
-
+    list_display_links = ('product', )
 
     class Meta:
         model = Product
@@ -35,9 +33,8 @@ class ProductAdmin(admin.ModelAdmin):
 class IngedientAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'count')
     search_fields = ('title', )
-    list_display_links =('title', )
+    list_display_links = ('title', )
     list_per_page = 20
-
 
     class Meta:
         model = Ingredient
