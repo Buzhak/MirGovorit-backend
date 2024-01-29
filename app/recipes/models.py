@@ -39,7 +39,7 @@ class Ingredient(models.Model):
         related_name='%(class)ss',
         verbose_name='Ингредиенты')
     amount = models.PositiveIntegerField(
-        'количество', validators=[MinValueValidator(1)]
+        'вес в граммах', validators=[MinValueValidator(1)]
     )
     recipe = models.ForeignKey(
         Recipe,
