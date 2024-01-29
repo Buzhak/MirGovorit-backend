@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import F, Q
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
@@ -45,6 +46,7 @@ def recipes_without_product(request, product_id):
 
 
 @require_GET
+@transaction.atomic
 def cook_recipe(request, recipe_id):
     '''
     View функция обновляет количество продуктов
@@ -65,6 +67,7 @@ def cook_recipe(request, recipe_id):
 
 
 @require_GET
+@transaction.atomic
 def add_product_to_recipe(request, recipe_id, product_id, weight):
     '''
     View функция добавляет продукт
