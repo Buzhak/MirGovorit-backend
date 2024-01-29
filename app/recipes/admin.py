@@ -19,16 +19,6 @@ class RecipeAdmin(admin.ModelAdmin):
         model = Recipe
 
 
-@admin.register(Ingredient)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product', 'amount')
-    list_filter = ('product', 'amount')
-    list_display_links = ('product', )
-
-    class Meta:
-        model = Product
-
-
 @admin.register(Product)
 class IngedientAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'count')
